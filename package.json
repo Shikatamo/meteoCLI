@@ -1,0 +1,24 @@
+{
+  "name": "meteocli",
+  "version": "0.0.2",
+  "description": "",
+  "main": "CLI.js",
+  "bin": {
+    "meteo": "./CLI.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thomas Morgana",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "github": "^5.0.0",
+    "inquirer": "^1.2.1",
+    "sqlite": "^2.2.0",
+    "sqlite3": "^3.1.5"
+  },
+  "devDependencies": {
+    "eslint": "^3.7.1"
+  }
+}
