@@ -15,6 +15,7 @@
     "commander": "^2.9.0",
     "github": "^5.0.0",
     "inquirer": "^1.2.1",
+    "node-openweather": "0.0.5",
     "sqlite": "^2.2.0",
     "sqlite3": "^3.1.5"
   },
