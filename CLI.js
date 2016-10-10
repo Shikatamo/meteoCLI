@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-const fct = require("./functions.js");
 const db = require("sqlite");
 const program = require("commander");
 const inquirer = require("inquirer");
+const fct = require("./functions.js");
 const questions = require("./questions.json");
+
 
 //CLI program parameters
 program
