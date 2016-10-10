@@ -1,13 +1,22 @@
 #!/usr/bin/env node
+const db = require("sqlite");
 const program = require("commander");
 const inquirer = require("inquirer");
 const weather = require('node-openweather')({
   key: "bdaf14209c7443ae1c46f1bae34a6332",
   accuracy: "like",
-  unit: "metric",
+  units: "metric",
   language: "en"
 });
 
+//DB initialisation
+db.open("meteo.db").then(() => {
+  return db.run("CREATE TABLE IF NOT EXISTS favourite (id, name, country)");
+}).then(() => {
+  console.log("Database created")
+})
+
+//CLI program parameters
 program
   .version("1.0.0")
   .option("-q, --query", "Ask the weather for a location")
@@ -78,36 +87,45 @@ if (program.query) {
             compare(answers);
         })
       }
+    })
 }
 
 function query(location, date){
   switch (date) {
     case "aujourd'hui":
-
+      console.log("API call : ")
       weather.city(location).now().then((result) => {
-        console.log("Aujourd'hui il fait " + Math.round(result.main.temp_min - 273.15) + "°C à " + location);
+        console.log("\nAujourd'hui il fait " + Math.round(result.main.temp_min) + "°C à " + location);
+      }).catch((err) =>{
+        console.log("Problem on the API call. Error: ", err);
       })
       break;
 
     case "demain":
+      console.log("API call : ")
       weather.city(location).forecast(5).then((result) => {
         var avgTemp = 0;
         for(var i = 8; i < 16; i++){
           avgTemp += result.list[i].main.temp_min;
         }
-        avgTemp = Math.round((avgTemp/8) - 273.15);
-        console.log("Demain il fera en moyenne " + avgTemp + "°C à " + location);
+        avgTemp = Math.round(avgTemp/8);
+        console.log("\nDemain il fera en moyenne " + avgTemp + "°C à " + location);
+      }).catch((err) =>{
+        console.log("Problem on the API call. Error: ", err);
       })
       break;
 
     case "cette semaine":
+      console.log("API call : ")
       weather.city(location).forecast(16).then((result) => {
         var avgTemp = 0;
         for(var i = 0; i < 7; i++){
           avgTemp += result.list[i].temp.min + result.list[i].temp.max;
         }
-        avgTemp = Math.round((avgTemp/14) - 273.15);
-        console.log("Cette semaine il fera en moyenne " + avgTemp + "°C à " + location);
+        avgTemp = Math.round(avgTemp/14);
+        console.log("\nCette semaine il fera en moyenne " + avgTemp + "°C à " + location);
+      }).catch((err) =>{
+        console.log("Problem on the API call. Error: ", err);
       })
       break;
     default:
@@ -148,4 +166,6 @@ function compare(){
 }
 
 function getFavourites(){ return [];}
-function addFavourite(){}
+function addFavourite(location){
+
+}
