@@ -1,0 +1,38 @@
+{
+  "methode":
+  {
+    "type": "list",
+    "message": "Voulez vous saisir une nouvelle ville ou utiliser vos favoris? \n",
+    "name": "choice",
+    "choices": [
+      "nouveau",
+      "favoris"
+    ]
+  },
+
+  "cityName":
+  {
+    "type": "input",
+    "message": "Entrez le nom de la ville pour laquelle vous voulez connaître la météo \n",
+    "name": "location"
+  },
+
+  "cityNameTwo":
+  {
+    "type": "input",
+    "message": "Entrez le nom de la seconde ville à comparer\n",
+    "name": "locationTwo"
+  },
+
+  "deltaTime":
+  {
+    "type": "list",
+    "message": "Quelle periode de temps voulez vous afficher \n",
+    "name": "date",
+    "choices": [
+      "aujourd'hui",
+      "demain",
+      "cette semaine"
+    ]
+  }
+}
