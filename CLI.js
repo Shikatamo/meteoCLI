@@ -40,35 +40,37 @@ db.open("meteo.db").then(() => {
     				},
         		questions.deltaTime
     			]).then((answer) =>{
-      				query(answer.location, answer.date);
+      				fct.query(answer.location, answer.date);
     			})
         })
       }
     })
   } else if (program.favourite) {
-  	favourite();
+  	fct.favourite();
   } else if (program.compare) {
     inquirer.prompt([
   		questions.methode
     ]).then((answer) => {
-    		if (answer == "favoris")
+    		if (answer.choice == "favoris")
         {
-          inquirer.prompt([
-        		{
-              type: "checkbox",
-        			message: "Voulez vous utiliser vos favoris ou séléctionner deux nouvelles villes? \n",
-        			name: "date",
-        			choices: getFavourites()
-            }
-          ]).then((answers) => {
-              compare(answers);
+          db.all("SELECT name FROM favourite").then((answers) => {
+            inquirer.prompt([
+          		{
+                type: "checkbox",
+          			message: "Choississez les villes à comparer \n",
+          			name: "locations",
+          			choices: answers
+              }
+            ]).then((answers) => {
+                fct.compare(answers.locations);
+            })
           })
         } else {
           inquirer.prompt([
         		questions.cityName,
             questions.cityNameTwo
           ]).then((answers) => {
-              compare(answers.location, answers.locationTwo);
+              fct.compare([answers.location, answers.locationTwo]);
           })
         }
       })

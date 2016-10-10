@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const db = require("sqlite");
 const weather = require('node-openweather')({
   key: "bdaf14209c7443ae1c46f1bae34a6332",
   accuracy: "like",
@@ -7,9 +8,17 @@ const weather = require('node-openweather')({
   country: "France"
 });
 
+db.open("meteo.db");
+
 module.exports = {
   query: function(location, date){
     query(location, date);
+  },
+  favourite: function(){
+    favourite();
+  },
+  compare: function(locations){
+    compare(locations);
   }
 }
 
@@ -89,12 +98,27 @@ function favourite(){
   				}
   			]).then((answer) =>{
   				db.run("DELETE FROM favourite WHERE name = ?", answer.favoris)
-  			});
+  			})
       })
 		}
-	});
+	})
 }
 
-function compare(location, locationTwo){
-
+function compare(locations){
+  var thisLocations = [];
+  console.log("API calls : ");
+  let i = 0;
+  let maxTemp = -273;
+  locations.forEach(function(index){
+    weather.city(index).now().then((result) => {
+      thisLocations[i++] = result;
+      if (i == locations.length) {
+        for(j=thisLocations.length; j--; ){
+          maxTemp = thisLocations[j].main.temp_max > maxTemp ? thisLocations[j].main.temp_max : maxTemp;
+          console.log(maxTemp);
+        }
+        console.log(maxTemp);
+      }
+    })
+  })
 }
