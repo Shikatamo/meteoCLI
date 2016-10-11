@@ -1,6 +1,8 @@
 const fs = require("fs");
 const db = require("sqlite");
 const inquirer = require("inquirer");
+const questions = require("./questions.json");
+//Params of OpenWeatherMap API calls
 const weather = require('node-openweather')({
   key: "bdaf14209c7443ae1c46f1bae34a6332",
   accuracy: "like",
@@ -11,6 +13,7 @@ const weather = require('node-openweather')({
 
 db.open("meteo.db");
 
+//Export of functions in order to use them in CLI program
 module.exports = {
   query: function(location, date){
     query(location, date);
@@ -23,6 +26,7 @@ module.exports = {
   }
 }
 
+//Get weatherr for a location on a time delta given in parameters
 function query(location, date){
   switch (date) {
     case "aujourd'hui":
@@ -39,9 +43,11 @@ function query(location, date){
       console.log("\nAPI call : ")
       weather.city(location).forecast(5).then((result) => {
         var avgTemp = 0;
+        //API returns 8 values for a day (one every 3 hours)
         for(var i = 8; i < 16; i++){
           avgTemp += result.list[i].main.temp_min;
         }
+        //Doing an average of all the values for the day
         avgTemp = Math.round(avgTemp/8);
         console.log("\nDemain il fera en moyenne " + avgTemp + "°C à " + location);
         writeLog("Call to API for " + result.list[0].name + " weather tomorrow.\n")
@@ -57,6 +63,7 @@ function query(location, date){
         for(var i = 0; i < 7; i++){
           avgTemp += result.list[i].temp.min + result.list[i].temp.max;
         }
+        //Doing an average on min and max temp for each day of the week
         avgTemp = Math.round(avgTemp/14);
         console.log("\nCette semaine il fera en moyenne " + avgTemp + "°C à " + location);
         writeLog("Call to API for " + result.list[0].name + " weather this week.\n")
@@ -69,6 +76,7 @@ function query(location, date){
   }
 }
 
+//Add or remove favourites from DB
 function favourite(){
 	inquirer.prompt([
 		{
@@ -83,17 +91,14 @@ function favourite(){
 	]).then((answer) => {
 		if(answer.choice == "ajouter"){
       inquirer.prompt([
-				{
-					type: "input",
-					message: "Entrez le nom de la ville pour laquelle vous voulez connaître la météo\n ",
-					name: "location"
-				}
+				questions.cityName;
 			]).then((answer) =>{
 				db.run("INSERT INTO favourite VALUES(NULL,?)", answer.location)
         writeLog("Add " + answer.location + " to favourites.\n");
       });
 		} else {
       db.all("SELECT name FROM favourite").then((answers) => {
+        //Display favourite list
         inquirer.prompt([
   				{
   					type: "list",
@@ -110,6 +115,7 @@ function favourite(){
 	})
 }
 
+//Compare weather for multiple locations
 function compare(locations){
   var thisLocations = [];
   console.log("API calls : ");
@@ -131,6 +137,7 @@ function compare(locations){
   })
 }
 
+//Write logs for each actions
 function writeLog(logData){
   var now = new Date(Date.now());
   fs.appendFile("logs.txt", now + " : " + logData);
