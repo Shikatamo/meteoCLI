@@ -1,5 +1,6 @@
-const inquirer = require("inquirer");
+const fs = require("fs");
 const db = require("sqlite");
+const inquirer = require("inquirer");
 const weather = require('node-openweather')({
   key: "bdaf14209c7443ae1c46f1bae34a6332",
   accuracy: "like",
@@ -28,7 +29,8 @@ function query(location, date){
       console.log("\nAPI call : ")
       weather.city(location).now().then((result) => {
         console.log("\nAujourd'hui il fait " + Math.round(result.main.temp_min) + "°C à " + location);
-      }).catch((err) =>{
+        writeLog("Call to API for " + result.name + " weather today.\n")
+        }).catch((err) =>{
         console.log("Problem on the API call. Error: ", err);
       })
       break;
@@ -42,6 +44,7 @@ function query(location, date){
         }
         avgTemp = Math.round(avgTemp/8);
         console.log("\nDemain il fera en moyenne " + avgTemp + "°C à " + location);
+        writeLog("Call to API for " + result.list[0].name + " weather tomorrow.\n")
       }).catch((err) =>{
         console.log("Problem on the API call. Error: ", err);
       })
@@ -56,6 +59,7 @@ function query(location, date){
         }
         avgTemp = Math.round(avgTemp/14);
         console.log("\nCette semaine il fera en moyenne " + avgTemp + "°C à " + location);
+        writeLog("Call to API for " + result.list[0].name + " weather this week.\n")
       }).catch((err) =>{
         console.log("Problem on the API call. Error: ", err);
       })
@@ -86,7 +90,8 @@ function favourite(){
 				}
 			]).then((answer) =>{
 				db.run("INSERT INTO favourite VALUES(NULL,?)", answer.location)
-			});
+        writeLog("Add " + answer.location + " to favourites.\n");
+      });
 		} else {
       db.all("SELECT name FROM favourite").then((answers) => {
         inquirer.prompt([
@@ -98,7 +103,8 @@ function favourite(){
   				}
   			]).then((answer) =>{
   				db.run("DELETE FROM favourite WHERE name = ?", answer.favoris)
-  			})
+          writeLog("Delete " + answer.favoris + " from favourites.\n")
+        })
       })
 		}
 	})
@@ -109,16 +115,23 @@ function compare(locations){
   console.log("API calls : ");
   let i = 0;
   let maxTemp = -273;
+  let citiesNames = "";
   locations.forEach(function(index){
     weather.city(index).now().then((result) => {
       thisLocations[i++] = result;
+      citiesNames += index + ", ";
       if (i == locations.length) {
         for(j=thisLocations.length; j--; ){
           maxTemp = thisLocations[j].main.temp_max > maxTemp ? thisLocations[j].main.temp_max : maxTemp;
-          console.log(maxTemp);
         }
         console.log(maxTemp);
+        writeLog("Call to API for " + citiesNames.slice(0, -2) + " for weather comparaison.\n")
       }
     })
   })
+}
+
+function writeLog(logData){
+  var now = new Date(Date.now());
+  fs.appendFile("logs.txt", now + " : " + logData);
 }
