@@ -12,8 +12,6 @@ program
   .option("-f, --favourite", "Add or save a new favourite location")
   .option("-c, --compare", "Compare the weather between 2 cities");
 
-program.parse(process.argv);
-
 //DB initialisation
 db.open("meteo.db").then(() => {
   return db.run("CREATE TABLE IF NOT EXISTS favourite (id PRIMARY KEY, name UNIQUE)");
@@ -31,17 +29,28 @@ db.open("meteo.db").then(() => {
       	})
       } else if(answer.choice == "favoris"){
         db.all("SELECT name FROM favourite").then((answers) => {
-          inquirer.prompt([
-    				{
-    					type: "list",
-    					message: "Séléctionnez le favoris à afficher\n ",
-    					name: "location",
-              choices: answers
-    				},
-        		questions.deltaTime
-    			]).then((answer) =>{
-      				fct.query(answer.location, answer.date);
-    			})
+          if(answers == [])
+          {
+            console.log("Vous n'avez pas de favoris");
+            inquirer.prompt([
+          		questions.cityName,
+              questions.deltaTime
+          	]).then((answers) => {
+          		fct.query(answers.location, answers.date);
+          	})
+          } else {
+            inquirer.prompt([
+      				{
+      					type: "list",
+      					message: "Séléctionnez le favoris à afficher\n ",
+      					name: "location",
+                choices: answers
+      				},
+          		questions.deltaTime
+      			]).then((answer) =>{
+        				fct.query(answer.location, answer.date);
+      			})
+          }
         })
       }
     })
@@ -54,16 +63,26 @@ db.open("meteo.db").then(() => {
     		if (answer.choice == "favoris")
         {
           db.all("SELECT name FROM favourite").then((answers) => {
-            inquirer.prompt([
-          		{
-                type: "checkbox",
-          			message: "Choississez les villes à comparer \n",
-          			name: "locations",
-          			choices: answers
-              }
-            ]).then((answers) => {
-                fct.compare(answers.locations);
-            })
+            if(answers == []){
+              console.log("Vous n'avez pas de favoris");
+              inquirer.prompt([
+            		questions.cityName,
+                questions.cityNameTwo
+              ]).then((answers) => {
+                  fct.compare([answers.location, answers.locationTwo]);
+              })
+            } else {
+              inquirer.prompt([
+            		{
+                  type: "checkbox",
+            			message: "Choississez les villes à comparer \n",
+            			name: "locations",
+            			choices: answers
+                }
+              ]).then((answers) => {
+                  fct.compare(answers.locations);
+              })
+            }
           })
         } else {
           inquirer.prompt([
