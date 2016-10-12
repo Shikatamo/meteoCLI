@@ -98,6 +98,7 @@ function favourite(){
       });
 		} else {
       db.all("SELECT name FROM favourite").then((answers) => {
+        //Check if favourite list contains enought favourites
         if(answers.length == 0) {
           console.log("Vous n'avez pas de favoris, ajoutez en un\n")
           favourite();
@@ -125,6 +126,7 @@ function compare(locations){
   var thisLocations = [];
   console.log("API calls : ");
   let i = 0;
+  //Initialize maxTemp at lowest know temp possible
   let maxTemp = -273;
   let citiesNames = "";
   locations.forEach(function(index){
@@ -134,8 +136,9 @@ function compare(locations){
       if (i == locations.length) {
         for(j=thisLocations.length; j--; ){
           maxTemp = thisLocations[j].main.temp_max > maxTemp ? thisLocations[j].main.temp_max : maxTemp;
+          bestCity = thisLocations[j].name;
         }
-        console.log(maxTemp);
+        console.log("\n La ville avec la plus haute température est "+ bestCity +" avec "+ maxTemp + "°C.");
         writeLog("Call to API for " + citiesNames.slice(0, -2) + " for weather comparaison.\n")
       }
     })

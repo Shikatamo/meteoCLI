@@ -17,3 +17,5 @@ Wed Oct 12 2016 13:29:08 GMT+0200 (Paris, Madrid (heure d’été)) : Add Bordea
 Wed Oct 12 2016 13:29:36 GMT+0200 (Paris, Madrid (heure d’été)) : Add Toulouse to favourites.
 Wed Oct 12 2016 13:29:41 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Bordeaux from favourites.
 Wed Oct 12 2016 13:29:46 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Toulouse from favourites.
+Wed Oct 12 2016 13:38:38 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux, Lille for weather comparaison.
+Wed Oct 12 2016 13:39:00 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille, Bordeaux for weather comparaison.

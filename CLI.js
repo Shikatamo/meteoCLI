@@ -2,7 +2,9 @@
 const db = require("sqlite");
 const program = require("commander");
 const inquirer = require("inquirer");
+//Import functions
 const fct = require("./functions.js");
+//Import questions data
 const questions = require("./questions.json");
 
 
@@ -23,6 +25,7 @@ db.open("meteo.db").then(() => {
     inquirer.prompt([
   		questions.methode
     ]).then((answer) => {
+      //New city
       if (answer.choice == "nouveau") {
         inquirer.prompt([
       		questions.cityName,
@@ -30,6 +33,7 @@ db.open("meteo.db").then(() => {
       	]).then((answers) => {
       		fct.query(answers.location, answers.date);
       	})
+        //City from Favourites
       } else if(answer.choice == "favoris"){
           db.all("SELECT name FROM favourite").then((answers) => {
           //Check if favourite list contains enought favourites
@@ -76,6 +80,7 @@ db.open("meteo.db").then(() => {
                 fct.compare([answers.location, answers.locationTwo]);
             })
           } else {
+            //User selection on city to compare (can be 2 or more)
             inquirer.prompt([
           		{
                 type: "checkbox",
