@@ -19,3 +19,14 @@ Wed Oct 12 2016 13:29:41 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Bor
 Wed Oct 12 2016 13:29:46 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Toulouse from favourites.
 Wed Oct 12 2016 13:38:38 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux, Lille for weather comparaison.
 Wed Oct 12 2016 13:39:00 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille, Bordeaux for weather comparaison.
+Wed Oct 12 2016 13:41:43 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
+Wed Oct 12 2016 13:44:13 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
+Wed Oct 12 2016 13:44:42 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille weather today.
+Wed Oct 12 2016 13:44:54 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Punta Cana weather today.
+Wed Oct 12 2016 13:45:22 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
+Wed Oct 12 2016 13:46:30 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Pau weather today.
+Wed Oct 12 2016 13:47:10 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather this week.
+Wed Oct 12 2016 13:48:17 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Pau, Bordeaux for weather comparaison.
+Wed Oct 12 2016 13:49:34 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather tomorrow.
+Wed Oct 12 2016 13:55:12 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
+Wed Oct 12 2016 13:55:18 GMT+0200 (Paris, Madrid (heure d’été)) : Add Bordeaux to favourites.

@@ -26,13 +26,13 @@ module.exports = {
   }
 }
 
-//Get weatherr for a location on a time delta given in parameters
+//Get weather for a location on a time delta given in parameters
 function query(location, date){
   switch (date) {
     case "aujourd'hui":
       console.log("\nAPI call : ")
       weather.city(location).now().then((result) => {
-        console.log("\nAujourd'hui il fait " + Math.round(result.main.temp_min) + "°C à " + location);
+        console.log("\nAujourd'hui il fait " + Math.round(result.main.temp_min) + "°C à " + location + ". Le vent souffle à " + result.wind.speed + " Noeuds et le ciel est couvert à " + result.clouds.all +"%.");
         writeLog("Call to API for " + result.name + " weather today.\n")
         }).catch((err) =>{
         console.log("Problem on the API call. Error: ", err);
@@ -46,10 +46,14 @@ function query(location, date){
         //API returns 8 values for a day (one every 3 hours)
         for(var i = 8; i < 16; i++){
           avgTemp += result.list[i].main.temp_min;
+          avgWind += result.list[i].wind.speed;
+          avgCloud += result.list[i].clouds.all;
         }
         //Doing an average of all the values for the day
         avgTemp = Math.round(avgTemp/8);
-        console.log("\nDemain il fera en moyenne " + avgTemp + "°C à " + location);
+        avgWind = Math.round(avgWind/8);
+        avgCloud = Math.round(avgCloud);
+        console.log("\nDemain il fera en moyenne " + avgTemp + "°C à " + location + ". Le vent soufflera à " + result.wind.speed + " Noeuds en moyenne et le ciel sera couvert à " + result.clouds.all +"% en moyenne.");
         writeLog("Call to API for " + result.list[0].name + " weather tomorrow.\n")
       }).catch((err) =>{
         console.log("Problem on the API call. Error: ", err);
@@ -60,12 +64,18 @@ function query(location, date){
       console.log("\nAPI call : ")
       weather.city(location).forecast(16).then((result) => {
         var avgTemp = 0;
+        var avgWind = 0;
+        var avgCloud = 0;
         for(var i = 0; i < 7; i++){
           avgTemp += result.list[i].temp.min + result.list[i].temp.max;
+          avgWind += result.list[i].speed;
+          avgCloud += result.list[i].clouds;
         }
-        //Doing an average on min and max temp for each day of the week
+        //Doing an average on values for each day of the week
         avgTemp = Math.round(avgTemp/14);
-        console.log("\nCette semaine il fera en moyenne " + avgTemp + "°C à " + location);
+        avgWind = Math.round(avgWind/7);
+        avgCloud = Math.round(avgCloud/7);
+        console.log("\nCette semaine il fera en moyenne " + avgTemp + "°C à " + location + ". Le vent soufflera à " + avgWind + " Noeuds en moyenne et le ciel sera couvert à " + avgCloud +"% en moyenne.");
         writeLog("Call to API for " + result.list[0].name + " weather this week.\n")
       }).catch((err) =>{
         console.log("Problem on the API call. Error: ", err);
@@ -137,8 +147,10 @@ function compare(locations){
         for(j=thisLocations.length; j--; ){
           maxTemp = thisLocations[j].main.temp_max > maxTemp ? thisLocations[j].main.temp_max : maxTemp;
           bestCity = thisLocations[j].name;
+          bestWind = thisLocations[j].wind.speed;
+          bestCloud = thisLocations[j].clouds.all;
         }
-        console.log("\n La ville avec la plus haute température est "+ bestCity +" avec "+ maxTemp + "°C.");
+        console.log("\n La ville avec la plus haute température est "+ bestCity +" avec "+ maxTemp + "°C. Il y souffle un vent à " + bestWind + " Noeuds et le ciel est couvert à " + bestCloud +"%.");
         writeLog("Call to API for " + citiesNames.slice(0, -2) + " for weather comparaison.\n")
       }
     })
