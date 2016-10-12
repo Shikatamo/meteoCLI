@@ -2,7 +2,9 @@
 const db = require("sqlite");
 const program = require("commander");
 const inquirer = require("inquirer");
+//Functions
 const fct = require("./functions.js");
+//Questions data
 const questions = require("./questions.json");
 
 
@@ -61,38 +63,38 @@ db.open("meteo.db").then(() => {
     inquirer.prompt([
   		questions.methode
     ]).then((answer) => {
-    		if (answer.choice == "favoris")
-        {
-          db.all("SELECT name FROM favourite").then((answers) => {
-            if(answers == []){
-              console.log("Vous n'avez pas de favoris");
-              inquirer.prompt([
-            		questions.cityName,
-                questions.cityNameTwo
-              ]).then((answers) => {
-                  fct.compare([answers.location, answers.locationTwo]);
-              })
-            } else {
-              inquirer.prompt([
-            		{
-                  type: "checkbox",
-            			message: "Choississez les villes à comparer \n",
-            			name: "locations",
-            			choices: answers
-                }
-              ]).then((answers) => {
-                  fct.compare(answers.locations);
-              })
-            }
-          })
-        } else {
-          inquirer.prompt([
-        		questions.cityName,
-            questions.cityNameTwo
-          ]).then((answers) => {
-              fct.compare([answers.location, answers.locationTwo]);
-          })
-        }
-      })
-  }
+	    if (answer.choice == "favoris")
+      {
+        db.all("SELECT name FROM favourite").then((answers) => {
+          if(answers == []){
+            console.log("Vous n'avez pas de favoris");
+            inquirer.prompt([
+          		questions.cityName,
+              questions.cityNameTwo
+            ]).then((answers) => {
+                fct.compare([answers.location, answers.locationTwo]);
+            })
+          } else {
+            inquirer.prompt([
+          		{
+                type: "checkbox",
+          			message: "Choississez les villes à comparer \n",
+          			name: "locations",
+          			choices: answers
+              }
+            ]).then((answers) => {
+                fct.compare(answers.locations);
+            })
+          }
+        })
+      } else {
+        inquirer.prompt([
+      		questions.cityName,
+          questions.cityNameTwo
+        ]).then((answers) => {
+            fct.compare([answers.location, answers.locationTwo]);
+        })
+      }
+    })
+  } 
 })
