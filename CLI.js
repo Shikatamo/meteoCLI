@@ -31,18 +31,29 @@ db.open("meteo.db").then(() => {
       		fct.query(answers.location, answers.date);
       	})
       } else if(answer.choice == "favoris"){
-        db.all("SELECT name FROM favourite").then((answers) => {
-          inquirer.prompt([
-    				{
-    					type: "list",
-    					message: "Séléctionnez le favoris à afficher\n ",
-    					name: "location",
-              choices: answers
-    				},
-        		questions.deltaTime
-    			]).then((answer) =>{
-      				fct.query(answer.location, answer.date);
-    			})
+          db.all("SELECT name FROM favourite").then((answers) => {
+          //Check if favourite list contains enought favourites
+          if(answers.length == 0) {
+            console.log("Vous n'avez pas de favoris");
+            inquirer.prompt([
+          		questions.cityName,
+              questions.deltaTime
+         	  ]).then((answers) => {
+          		fct.query(answers.location, answers.date);
+          	})
+          } else {
+            inquirer.prompt([
+      				{
+      					type: "list",
+      					message: "Séléctionnez le favoris à afficher\n ",
+      					name: "location",
+                choices: answers
+      				},
+          		questions.deltaTime
+      			]).then((answer) =>{
+        				fct.query(answer.location, answer.date);
+      			})
+          }
         })
       }
     })
@@ -52,9 +63,19 @@ db.open("meteo.db").then(() => {
     inquirer.prompt([
   		questions.methode
     ]).then((answer) => {
-    		if (answer.choice == "favoris")
-        {
-          db.all("SELECT name FROM favourite").then((answers) => {
+  		if (answer.choice == "favoris")
+      {
+        db.all("SELECT name FROM favourite").then((answers) => {
+          //Check if favourite list contains enought favourites
+          if(answers.length < 2) {
+            console.log("Vous n'avez pas assez de favoris");
+            inquirer.prompt([
+          		questions.cityName,
+              questions.cityNameTwo
+            ]).then((answers) => {
+                fct.compare([answers.location, answers.locationTwo]);
+            })
+          } else {
             inquirer.prompt([
           		{
                 type: "checkbox",
@@ -65,15 +86,18 @@ db.open("meteo.db").then(() => {
             ]).then((answers) => {
                 fct.compare(answers.locations);
             })
-          })
-        } else {
-          inquirer.prompt([
-        		questions.cityName,
-            questions.cityNameTwo
-          ]).then((answers) => {
-              fct.compare([answers.location, answers.locationTwo]);
-          })
-        }
-      })
+          }
+        })
+      } else {
+        inquirer.prompt([
+      		questions.cityName,
+          questions.cityNameTwo
+        ]).then((answers) => {
+            fct.compare([answers.location, answers.locationTwo]);
+        })
+      }
+    })
+  } else {
+    program.help();
   }
 })

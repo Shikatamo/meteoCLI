@@ -98,18 +98,23 @@ function favourite(){
       });
 		} else {
       db.all("SELECT name FROM favourite").then((answers) => {
-        //Display favourite list
-        inquirer.prompt([
-  				{
-  					type: "list",
-  					message: "Séléctionnez le favoris à supprimer\n ",
-  					name: "favoris",
-            choices: answers
-  				}
-  			]).then((answer) =>{
-  				db.run("DELETE FROM favourite WHERE name = ?", answer.favoris)
-          writeLog("Delete " + answer.favoris + " from favourites.\n")
-        })
+        if(answers.length == 0) {
+          console.log("Vous n'avez pas de favoris, ajoutez en un\n")
+          favourite();
+        } else {
+          //Display favourite list
+          inquirer.prompt([
+    				{
+    					type: "list",
+    					message: "Séléctionnez le favoris à supprimer\n ",
+    					name: "favoris",
+              choices: answers
+    				}
+    			]).then((answer) =>{
+    				db.run("DELETE FROM favourite WHERE name = ?", answer.favoris)
+            writeLog("Delete " + answer.favoris + " from favourites.\n")
+          })
+        }
       })
 		}
 	})
