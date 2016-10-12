@@ -91,7 +91,7 @@ function favourite(){
 	]).then((answer) => {
 		if(answer.choice == "ajouter"){
       inquirer.prompt([
-				questions.cityName;
+				questions.cityName
 			]).then((answer) =>{
 				db.run("INSERT INTO favourite VALUES(NULL,?)", answer.location)
         writeLog("Add " + answer.location + " to favourites.\n");

@@ -10,3 +10,4 @@ Tue Oct 11 2016 01:01:03 GMT+0200 (Europe centrale - heure d’été) : Add Stra
 Tue Oct 11 2016 01:01:11 GMT+0200 (Europe centrale - heure d’été) : Call to API for Paris, Bordeaux, Strasbourg,  for weather comparaison.
 Tue Oct 11 2016 01:03:21 GMT+0200 (Europe centrale - heure d’été) : Call to API for Bordeaux, Strasbourg, Paris,for weather comparaison.
 Tue Oct 11 2016 01:03:49 GMT+0200 (Europe centrale - heure d’été) : Call to API for Bordeaux, Paris, Strasbourg for weather comparaison.
+Wed Oct 12 2016 13:10:59 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
