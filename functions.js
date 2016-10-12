@@ -43,6 +43,8 @@ function query(location, date){
       console.log("\nAPI call : ")
       weather.city(location).forecast(5).then((result) => {
         var avgTemp = 0;
+        var avgWind = 0;
+        var avgCloud = 0;
         //API returns 8 values for a day (one every 3 hours)
         for(var i = 8; i < 16; i++){
           avgTemp += result.list[i].main.temp_min;
@@ -52,8 +54,8 @@ function query(location, date){
         //Doing an average of all the values for the day
         avgTemp = Math.round(avgTemp/8);
         avgWind = Math.round(avgWind/8);
-        avgCloud = Math.round(avgCloud);
-        console.log("\nDemain il fera en moyenne " + avgTemp + "°C à " + location + ". Le vent soufflera à " + result.wind.speed + " Noeuds en moyenne et le ciel sera couvert à " + result.clouds.all +"% en moyenne.");
+        avgCloud = Math.round(avgCloud/8);
+        console.log("\nDemain il fera en moyenne " + avgTemp + "°C à " + location + ". Le vent soufflera à " + avgWind + " Noeuds en moyenne et le ciel sera couvert à " + avgCloud +"% en moyenne.");
         writeLog("Call to API for " + result.list[0].name + " weather tomorrow.\n")
       }).catch((err) =>{
         console.log("Problem on the API call. Error: ", err);
@@ -146,9 +148,13 @@ function compare(locations){
       if (i == locations.length) {
         for(j=thisLocations.length; j--; ){
           maxTemp = thisLocations[j].main.temp_max > maxTemp ? thisLocations[j].main.temp_max : maxTemp;
-          bestCity = thisLocations[j].name;
-          bestWind = thisLocations[j].wind.speed;
-          bestCloud = thisLocations[j].clouds.all;
+          if(maxTemp == thisLocations[j].main.temp_max)
+          {
+            console.log(thisLocations[j]);
+            var bestCity = thisLocations[j].name;
+            var bestWind = thisLocations[j].wind.speed;
+            var bestCloud = thisLocations[j].clouds.all;
+          }
         }
         console.log("\n La ville avec la plus haute température est "+ bestCity +" avec "+ maxTemp + "°C. Il y souffle un vent à " + bestWind + " Noeuds et le ciel est couvert à " + bestCloud +"%.");
         writeLog("Call to API for " + citiesNames.slice(0, -2) + " for weather comparaison.\n")

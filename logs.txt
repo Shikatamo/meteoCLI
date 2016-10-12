@@ -30,3 +30,31 @@ Wed Oct 12 2016 13:48:17 GMT+0200 (Paris, Madrid (heure d’été)) : Call to AP
 Wed Oct 12 2016 13:49:34 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather tomorrow.
 Wed Oct 12 2016 13:55:12 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
 Wed Oct 12 2016 13:55:18 GMT+0200 (Paris, Madrid (heure d’été)) : Add Bordeaux to favourites.
+Wed Oct 12 2016 14:14:11 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
+Wed Oct 12 2016 14:14:17 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather this week.
+Wed Oct 12 2016 14:16:30 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
+Wed Oct 12 2016 14:16:35 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather tomorrow.
+Wed Oct 12 2016 14:17:04 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather tomorrow.
+Wed Oct 12 2016 14:17:10 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather this week.
+Wed Oct 12 2016 14:17:20 GMT+0200 (Paris, Madrid (heure d’été)) : Add Lille to favourites.
+Wed Oct 12 2016 14:17:25 GMT+0200 (Paris, Madrid (heure d’été)) : Add Barcelone to favourites.
+Wed Oct 12 2016 14:17:30 GMT+0200 (Paris, Madrid (heure d’été)) : Add Milan to favourites.
+Wed Oct 12 2016 14:17:40 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for undefined weather tomorrow.
+Wed Oct 12 2016 14:17:49 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux, Lille for weather comparaison.
+Wed Oct 12 2016 14:18:06 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille, Bordeaux, Barcelone for weather comparaison.
+Wed Oct 12 2016 14:18:23 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille, Bordeaux for weather comparaison.
+Wed Oct 12 2016 14:18:43 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux, Barcelone for weather comparaison.
+Wed Oct 12 2016 14:18:52 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Eixample weather today.
+Wed Oct 12 2016 14:21:33 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux weather today.
+Wed Oct 12 2016 14:21:44 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille, Bordeaux for weather comparaison.
+Wed Oct 12 2016 14:21:51 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Bordeaux, Barcelone, Lille for weather comparaison.
+Wed Oct 12 2016 14:22:10 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille, Bordeaux, Milan for weather comparaison.
+Wed Oct 12 2016 14:22:18 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Eixample weather today.
+Wed Oct 12 2016 14:22:25 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Barcelone, Lille for weather comparaison.
+Wed Oct 12 2016 14:23:00 GMT+0200 (Paris, Madrid (heure d’été)) : Call to API for Lille, Barcelone, Bordeaux for weather comparaison.
+Wed Oct 12 2016 14:23:52 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Barcelone from favourites.
+Wed Oct 12 2016 14:23:56 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Bordeaux from favourites.
+Wed Oct 12 2016 14:23:59 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Lille from favourites.
+Wed Oct 12 2016 14:24:03 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Milan from favourites.
+Wed Oct 12 2016 14:24:13 GMT+0200 (Paris, Madrid (heure d’été)) : Add Lille to favourites.
+Wed Oct 12 2016 14:24:16 GMT+0200 (Paris, Madrid (heure d’été)) : Delete Lille from favourites.
